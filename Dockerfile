@@ -1,5 +1,5 @@
 FROM alpine:3.6
-ENV AWSCLI_VERSION "1.11.116"
+ENV AWSCLI_VERSION "1.11.117"
 RUN apk -v --update add \
         python \
         py-pip \
