@@ -13,6 +13,7 @@ function update()
 
   if [[ "${current}" != "${latest}" ]]; then
     git checkout -qf ${TRAVIS_BRANCH}
+    git pull origin ${TRAVIS_BRANCH}
     sed -i -e "s/${current}/${latest}/" Dockerfile
     git commit -m"AWS CLI ${latest}" .
     git push origin ${TRAVIS_BRANCH}
