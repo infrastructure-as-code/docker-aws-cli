@@ -13,11 +13,11 @@ function update()
 
   if [[ "${current}" != "${latest}" ]]; then
     sed -i -e "s/${current}/${latest}/" Dockerfile
-    docker build --rm -it aws-cli .
+    docker build --rm -t aws-cli .
     git commit -m"AWS CLI ${latest}" .
     git push origin ${TRAVIS_BRANCH}
   else
-    docker build --rm -it aws-cli .
+    docker build --rm -t aws-cli .
   fi
 }
 
