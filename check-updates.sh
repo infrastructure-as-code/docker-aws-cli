@@ -20,7 +20,7 @@ function update()
     git push origin ${TRAVIS_BRANCH}
     # create the tag
     git tag --annotate "${latest}" -m"AWS CLI ${latest}" --force
-    git push origin "${latest}"
+    git push origin "${latest}" --force
     # create the release
   fi
 }
