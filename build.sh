@@ -12,6 +12,7 @@ function update()
   local current=$(grep "ENV AWSCLI_VERSION" Dockerfile | awk '{print $3}' | sed -e 's/"//g')
 
   if [[ "${current}" != "${latest}" ]]; then
+    git checkout -qf ${TRAVIS_BRANCH}
     sed -i -e "s/${current}/${latest}/" Dockerfile
     docker build --rm -t aws-cli .
     git commit -m"AWS CLI ${latest}" .
