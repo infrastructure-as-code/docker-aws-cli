@@ -7,12 +7,12 @@ Containerized AWS CLI on alpine to avoid requiring the aws cli to be installed o
 ## Build
 
 ```
-docker build -t mesosphere/aws-cli .
+docker build -t infrastructureascode/aws-cli .
 ```
 
 Automated build on Docker Hub
 
-[![DockerHub Badge](http://dockeri.co/image/mesosphere/aws-cli)](https://hub.docker.com/r/mesosphere/aws-cli/)
+[![DockerHub Badge](http://dockeri.co/image/infrastructureascode/aws-cli)](https://hub.docker.com/r/infrastructureascode/aws-cli/)
 
 ## Usage
 
@@ -39,13 +39,13 @@ To use `aws.sh` as a drop-in replacement for calls to the aws-cli, use one of th
 Add an alias to your shell:
 
 ```
-alias aws='docker run --rm -t $(tty &>/dev/null && echo "-i") -e "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" -e "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" -e "AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}" -v "$(pwd):/project" mesosphere/aws-cli'
+alias aws='docker run --rm -t $(tty &>/dev/null && echo "-i") -e "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" -e "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" -e "AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}" -v "$(pwd):/project" infrastructureascode/aws-cli'
 ```
 
 Or drop it into your path named `aws`:
 
 ```
-curl -o /usr/local/bin/aws https://raw.githubusercontent.com/mesosphere/aws-cli/master/aws.sh && chmod a+x /usr/local/bin/aws
+curl -o /usr/local/bin/aws https://raw.githubusercontent.com/infrastructure-as-code/docker-aws-cli/master/aws.sh && chmod a+x /usr/local/bin/aws
 ```
 
 ## References
