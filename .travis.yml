@@ -1,5 +1,16 @@
 language: python
 services:
-  - docker
+- docker
+env:
+  global:
+    secure: B3MMau/L6t92ZzvkzEmaC1OUEQjcrLSfcAO3fK8cK26rWpn49jF4SXL6EQRTloi308OkN9wX5rwv6OC4SDeZyv3lLWsjZ69ZD3NuiVSvjKqC+NaTgIHbD2EZSW8TvDnpCSdLd07WZ9Hp8FVpK5iyTi73SQhno0R2IQkdqat8bHNUBOUibKi57iBgmp2OK3JXp2E8TM93eh8MuXdV0rVJsRc9KBSdWGDZ2sykxVndiUUezjlHAJIBlC86erbUA62MrNJvK2POWL4R95d7FvV47X3t+wDOae7v1gtbNqFok6bfGTIv0/ZBIP/n5m8aucTxZDCLCJMFsfcJPXtfp0bNffqDULSizL6Pps66JOBOv+zd2Ss1qoBrqCZaUpka6YxaVLICBT47poJ9bc8JqEg6ajJsq5UacWdARWOPKMHdbu9rYac/kEbvY/yl2tJSbhxqja3VtKyoCHuVR16OWlPRPNOZikNHYPf34Q/TegnjtlAmyhWiCLfb4cfIVDPivgX+rj//3gGZueEhmJMiQuTe3Xy7D+Spz3WXuDB1s7x4NLrbQl1Lfem8Fb3STRMvXNYgnlYfiVkiigHklfN0TuUUShyj1eK7de9Cpkw9I3pIrDXrmlDasFG2BFpZ6+zmWVizxmQzWhpd6bjS+w2ZEkahVY1YtTUYRiVjuggMmOPGywg=
+install:
+- pip install awscli
+- echo "machine github.com" > ~/.netrc
+- echo "login vincetse" >> ~/.netrc
+- echo "password ${GITHUB_TOKEN}" >> ~/.netrc
+- echo "protocol https" >> ~/.netrc
+- git config --global user.email "travis@travis-ci.org"
+- git config --global user.name "Travis CI"
 script:
-  - docker build -t vincetse/aws-cli .
+- ./check-for-updates.sh

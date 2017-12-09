@@ -1,0 +1,24 @@
+#!/bin/bash -euxo pipefail
+
+function cleanup()
+{
+  rm -f ~/.netrc
+}
+
+function update()
+{
+  local latest=$(pip2 show awscli | grep Version | awk '{print $2}')
+  local current=$(grep "ENV AWSCLI_VERSION" Dockerfile | awk '{print $3}' | sed -e 's/"//g')
+
+  if [[ "${current}" != "${latest}" ]]; then
+    sed -i -e "s/${current}/${latest}/" Dockerfile
+    docker build --rm -it aws-cli .
+    git commit -m"AWS CLI ${latest}" .
+  fi
+}
+
+trap cleanup EXIT ERR
+if [[ "${TRAVIS_BRANCH}" == "automate-update" ]]; then
+  git checkout master
+  update
+fi
