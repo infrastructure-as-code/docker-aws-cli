@@ -15,11 +15,13 @@ function update()
     sed -i -e "s/${current}/${latest}/" Dockerfile
     docker build --rm -it aws-cli .
     git commit -m"AWS CLI ${latest}" .
+    git push origin ${TRAVIS_BRANCH}
+  else
+    docker build --rm -it aws-cli .
   fi
 }
 
 trap cleanup EXIT ERR
 if [[ "${TRAVIS_BRANCH}" == "automate-update" ]]; then
-  git checkout master
   update
 fi
