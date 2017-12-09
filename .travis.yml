@@ -13,4 +13,4 @@ install:
 - git config --global user.email "travis@travis-ci.org"
 - git config --global user.name "Travis CI"
 script:
-- ./check-for-updates.sh
+- ./build.sh
