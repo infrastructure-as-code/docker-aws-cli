@@ -17,9 +17,10 @@ function update()
     git pull origin ${TRAVIS_BRANCH}
     sed -i -e "s/${current}/${latest}/" Dockerfile
     git commit -m"AWS CLI ${latest}" .
+    git push origin ${TRAVIS_BRANCH}
     # create the tag
     git tag --annotate "${latest}" -m"AWS CLI ${latest}" --force
-    git push origin ${TRAVIS_BRANCH}
+    git push origin "${latest}"
     # create the release
   fi
 }
