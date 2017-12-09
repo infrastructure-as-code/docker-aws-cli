@@ -12,11 +12,15 @@ function update()
   local current=$(grep "ENV AWSCLI_VERSION" Dockerfile | awk '{print $3}' | sed -e 's/"//g')
 
   if [[ "${current}" != "${latest}" ]]; then
+    # Update version and push to origin, then create a release
     git checkout -qf ${TRAVIS_BRANCH}
     git pull origin ${TRAVIS_BRANCH}
     sed -i -e "s/${current}/${latest}/" Dockerfile
     git commit -m"AWS CLI ${latest}" .
+    # create the tag
+    git tag --annotate "${latest}" -m"AWS CLI ${latest}" --force
     git push origin ${TRAVIS_BRANCH}
+    # create the release
   fi
 }
 
