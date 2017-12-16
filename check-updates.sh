@@ -6,6 +6,20 @@ function cleanup()
   rm -f ~/.netrc
 }
 
+function write_release_json()
+{
+  local tag_name=$1
+  local name=$2
+  cat <<END > release.json
+{
+  "tag_name": "${tag_name}",
+  "name": "${name}",
+  "draft": false,
+  "prerelease": false
+}
+END
+}
+
 function update()
 {
   local latest=$(pip2 show awscli | grep Version | awk '{print $2}')
@@ -22,6 +36,11 @@ function update()
     git tag --annotate "${latest}" -m"AWS CLI ${latest}" --force
     git push origin "${latest}" --force
     # create the release
+    write_release_json "${latest}" "AWS CLI "${latest}"
+    curl --request POST \
+      --header "Content-Type: application/json" \
+      --data '@release.json' \
+      "https://github.com/repos/${TRAVIS_REPO_SLUG}/releases
   fi
 }
 
