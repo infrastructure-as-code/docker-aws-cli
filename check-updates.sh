@@ -19,7 +19,7 @@ function update()
 {
   local latest=$(pip2 show awscli | grep Version | awk '{print $2}')
   local current=$(grep "ENV AWSCLI_VERSION" Dockerfile | awk '{print $3}' | sed -e 's/"//g')
-  local user=$(echo ${TRAVIS_REPO_SLUG} | awk F/ '{ print $1 }')
+  local user=$(echo ${TRAVIS_REPO_SLUG} | awk -F/ '{ print $1 }')
 
   if [[ "${current}" != "${latest}" ]]; then
     # Update version and push to origin, then create a release
