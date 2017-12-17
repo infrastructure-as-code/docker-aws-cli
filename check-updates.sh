@@ -41,7 +41,6 @@ function update()
   fi
 }
 
-trap cleanup EXIT ERR
 if [[ "${TRAVIS_BRANCH}" == "automate-update" ]]; then
   update
 fi
