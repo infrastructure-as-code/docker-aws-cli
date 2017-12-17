@@ -15,3 +15,5 @@ install:
 script:
 - ./check-updates.sh
 - docker build --rm -t aws-cli .
+after_script:
+- rm -f ~/.netrc
