@@ -1,11 +1,6 @@
 #!/bin/bash
 set -euxo pipefail
 
-function cleanup()
-{
-  rm -f ~/.netrc
-}
-
 function write_release_json()
 {
   local tag_name=$1
@@ -24,6 +19,7 @@ function update()
 {
   local latest=$(pip2 show awscli | grep Version | awk '{print $2}')
   local current=$(grep "ENV AWSCLI_VERSION" Dockerfile | awk '{print $3}' | sed -e 's/"//g')
+  local user=$(echo ${TRAVIS_REPO_SLUG} | awk F/ '{ print $1 }')
 
   if [[ "${current}" != "${latest}" ]]; then
     # Update version and push to origin, then create a release
@@ -39,6 +35,7 @@ function update()
     write_release_json "${latest}" "AWS CLI "${latest}"
     curl --request POST \
       --header "Content-Type: application/json" \
+      --user "${user}:${GITHUB_TOKEN}" \
       --data '@release.json' \
       "https://github.com/repos/${TRAVIS_REPO_SLUG}/releases
   fi
