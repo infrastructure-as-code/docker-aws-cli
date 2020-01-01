@@ -25,7 +25,7 @@ function install_latest()
 
 function update()
 {
-  local latest=$(pip2 show awscli | grep Version | awk '{print $2}')
+  local latest=$(pip show awscli | grep Version | awk '{print $2}')
   local current=$(grep "ENV AWSCLI_VERSION" Dockerfile | awk '{print $3}' | sed -e 's/"//g')
   local user=$(echo ${TRAVIS_REPO_SLUG} | awk -F/ '{ print $1 }')
 
