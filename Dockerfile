@@ -9,7 +9,7 @@ RUN apk -v --no-cache --update add \
         && \
     pip --no-cache-dir install --upgrade awscli==${AWSCLI_VERSION} && \
     apk -v --purge del py-pip && \
-    rm /var/cache/apk/*
+    rm -rf /var/cache/apk/*
 VOLUME /root/.aws
 VOLUME /project
 WORKDIR /project
