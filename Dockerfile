@@ -1,5 +1,5 @@
 FROM alpine:latest
-ENV AWSCLI_VERSION "1.19.20"
+ENV AWSCLI_VERSION "1.19.21"
 RUN apk -v --no-cache --update add \
         python3 \
         py3-pip \
